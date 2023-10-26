@@ -1,15 +1,35 @@
-const { faker } = require('@faker-js/faker');
+const readline = require('readline').createInterface({
+  input: process.stdin, 
+  output: process.stdout
+});
 
-let names = new Set();
+readline.question('Введіть довжину масиву: ', length => {
 
-while (names.size < 10)
- {
-  let name = faker.person.firstName();
-  if (!names.has(name)) {
-    names.add(name);
-  }
-}
+  readline.question('Введіть число з якого почати відлік: ', start => {
 
-let sortedArr = Array.from(names).sort();
+    const array = new Array(length);
+    let i = 0;
 
-console.table(sortedArr)
+    function isPrime(num) {
+      for(let j = 2; j < num; j++) {
+        if(num % j === 0) {
+          return false;
+        }   
+      }
+      return num > 1;
+    }
+
+    for(let n = start; i < length; n++) {
+      if(isPrime(n) && typeof n === 'number') {
+        array[i] = +n; 
+        i++;
+      }
+    }
+
+    console.log(array);
+
+    readline.close();
+
+  });
+
+});
